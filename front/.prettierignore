@@ -1,0 +1,5 @@
+.next/*
+.eslintrc.json
+tsconfig.json
+package.json
+.prettierrc.json
