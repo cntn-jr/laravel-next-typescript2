@@ -1,5 +1,5 @@
-import { AppColor } from "@/styles/AppColor"
-import { Button, styled } from "@mui/material"
+import { AppColor } from "@/styles/AppColor";
+import { Button, styled } from "@mui/material";
 
 const basic = styled(Button)({
     color: "#fff",
@@ -14,8 +14,8 @@ const basic = styled(Button)({
     "&:focus": {
         backgroundColor: AppColor.accentFocus,
     },
-})
+});
 
 export const CustomButton = {
     basic,
-}
+};

@@ -1,17 +1,17 @@
-import { Box, Container, Grid } from "@mui/material"
-import { AppFooter } from "./AppFooter"
-import { AppHeader } from "./AppHeader"
+import { Box, Container, Grid } from "@mui/material";
+import { AppFooter } from "./AppFooter";
+import { AppHeader } from "./AppHeader";
 
-import { AppMain } from "./AppMain"
-import { ReactNode } from "react"
-import { AppColor } from "@/styles/AppColor"
+import { AppMain } from "./AppMain";
+import { ReactNode } from "react";
+import { AppColor } from "@/styles/AppColor";
 
 type Props = {
-    children: ReactNode
-}
+    children: ReactNode;
+};
 
 export const AppAuthLayout = (props: Props) => {
-    const { children } = props
+    const { children } = props;
     return (
         <Box display="flex" sx={{ backgroundColor: AppColor.back }}>
             <AppHeader />
@@ -31,5 +31,5 @@ export const AppAuthLayout = (props: Props) => {
                 </Container>
             </Grid>
         </Box>
-    )
-}
+    );
+};

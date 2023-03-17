@@ -1,6 +1,6 @@
-import { AppColor } from "@/styles/AppColor"
-import { TextField } from "@mui/material"
-import { styled } from "@mui/system"
+import { AppColor } from "@/styles/AppColor";
+import { TextField } from "@mui/material";
+import { styled } from "@mui/system";
 
 const basic = styled(TextField)({
     "& label": {
@@ -20,8 +20,8 @@ const basic = styled(TextField)({
             borderColor: AppColor.accentFocus,
         },
     },
-})
+});
 
 export const CustomTextField = {
     basic,
-}
+};

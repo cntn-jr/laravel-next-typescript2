@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material"
+import { Grid } from "@mui/material";
 
 export const AppSidebar = () => {
     return (
@@ -11,5 +11,5 @@ export const AppSidebar = () => {
         >
             {/* <Sidebar /> */}
         </Grid>
-    )
-}
+    );
+};

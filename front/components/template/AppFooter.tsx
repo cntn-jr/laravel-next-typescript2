@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material"
+import { Typography } from "@mui/material";
 
 export const AppFooter = () => {
     return (
@@ -11,5 +11,5 @@ export const AppFooter = () => {
             <span dangerouslySetInnerHTML={{ __html: "&copy;" }} />
             2023 Yoshihiko Chihara
         </Typography>
-    )
-}
+    );
+};

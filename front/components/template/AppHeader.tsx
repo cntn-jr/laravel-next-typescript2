@@ -1,5 +1,5 @@
-import { AppColor } from "@/styles/AppColor"
-import { AppBar, Box, Typography } from "@mui/material"
+import { AppColor } from "@/styles/AppColor";
+import { AppBar, Box, Typography } from "@mui/material";
 
 export const AppHeader = () => {
     return (
@@ -21,5 +21,5 @@ export const AppHeader = () => {
                 </Typography>
             </Box>
         </AppBar>
-    )
-}
+    );
+};
