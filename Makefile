@@ -17,6 +17,7 @@ init:
 	touch ./front/.prettierignore
 	docker-compose exec front yarn add @mui/material @emotion/react @emotion/styled
 	docker-compose exec front yarn add react-query
+	docker-compose exec front yarn add axios
 	docker-compose exec front yarn add @reduxjs/toolkit react-redux
 	docker-compose down
 
