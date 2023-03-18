@@ -12,10 +12,10 @@ const loginUserSlice = createSlice({
     initialState,
     reducers: {
         changeEmail: (state, action: PayloadAction<string>) => {
-            state = { ...state, email: action.payload };
+            state.email = action.payload;
         },
         changePassword: (state, action: PayloadAction<string>) => {
-            state = { ...state, password: action.payload };
+            state.password = action.payload;
         },
         resetUser: (state) => {
             state = initialState;
