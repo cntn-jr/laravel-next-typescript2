@@ -1,15 +1,14 @@
 import { changeEmail, changePassword } from "@/ducks/loginUserSlice";
-import { RootState } from "@/ducks/store";
 import { useLoginForm } from "@/features/login/useLoginForm";
 import { ChangeEvent } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { BasicCard } from "../atoms/BasicCard";
-import { CustomButton } from "../CustomStyles/CustomButton";
-import { CustomTextField } from "../CustomStyles/CustomTextField";
+import { useDispatch } from "react-redux";
+import { BasicCard } from "../../components/atoms/BasicCard";
+import { CustomButton } from "../../components/ui/CustomButton";
+import { CustomTextField } from "../../components/ui/CustomTextField";
 
 export const LoginForm = () => {
-    const BasicTextField = CustomTextField.basic;
-    const BasicButton = CustomButton.basic;
+    const BasicTextField = CustomTextField.primary;
+    const BasicButton = CustomButton.primary;
     const dispatch = useDispatch();
     const { onClickLoginButton } = useLoginForm();
     return (

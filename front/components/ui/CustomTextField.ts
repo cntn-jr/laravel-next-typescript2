@@ -2,7 +2,7 @@ import { AppColor } from "@/styles/AppColor";
 import { TextField } from "@mui/material";
 import { styled } from "@mui/system";
 
-const basic = styled(TextField)({
+const primary = styled(TextField)({
     "& label": {
         color: AppColor.other,
     },
@@ -23,5 +23,5 @@ const basic = styled(TextField)({
 });
 
 export const CustomTextField = {
-    basic,
+    primary,
 };
