@@ -11,4 +11,5 @@ export const AppColor = {
     accentFocus: "#0e54a2",
     other: "#59C1BD",
     otherHover: "#97D8D6",
+    disabled: "#ddd",
 };

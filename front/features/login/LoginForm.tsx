@@ -1,6 +1,7 @@
 import { changeEmail, changePassword } from "@/ducks/loginUserSlice";
 import { RootState } from "@/ducks/store";
 import { useLoginForm } from "@/features/login/useLoginForm";
+import { CircularProgress } from "@mui/material";
 import { ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BasicCard } from "../../components/atoms/BasicCard";
@@ -11,10 +12,10 @@ import { useValidatePassword } from "./useValidatePassword";
 
 export const LoginForm = () => {
     const PrimaryTextField = CustomTextField.primary;
-    const PrimaryButton = CustomButton.primary;
+    const PrimaryLoadingButton = CustomButton.primaryLoading;
     const dispatch = useDispatch();
     const loginUser = useSelector((state: RootState) => state.loginUser);
-    const { onClickLoginButton } = useLoginForm();
+    const { onClickLoginButton, isLoading } = useLoginForm();
     const { isNotExactEmail } = useValidateEmail();
     const { isNotExactPassword } = useValidatePassword();
     return (
@@ -30,7 +31,7 @@ export const LoginForm = () => {
                     dispatch(changeEmail(e.target.value));
                 }}
                 // error={error}
-                // disabled={loading}
+                disabled={isLoading}
             />
             <PrimaryTextField
                 type="password"
@@ -43,16 +44,17 @@ export const LoginForm = () => {
                     dispatch(changePassword(e.target.value))
                 }
                 // error={error}
-                // disabled={loading}
+                disabled={isLoading}
             />
-            <PrimaryButton
+            <PrimaryLoadingButton
                 onClick={onClickLoginButton}
+                loading={isLoading}
                 disabled={
                     isNotExactEmail(loginUser) || isNotExactPassword(loginUser)
                 }
             >
                 Log in
-            </PrimaryButton>
+            </PrimaryLoadingButton>
         </BasicCard>
     );
 };

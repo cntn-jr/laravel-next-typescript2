@@ -2,20 +2,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/ducks/store";
 import { useAuthenticate } from "@/hooks/useAuthenticate";
 import axios from "axios";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { changeEmail, changePassword } from "@/ducks/loginUserSlice";
 
 export const useLoginForm = () => {
     const loginUser = useSelector((state: RootState) => state.loginUser);
     const dispatch = useDispatch();
+    const [isLoading, setLoading] = useState<boolean>(false);
     const { loginMutation } = useAuthenticate();
 
     const onClickLoginButton = () => {
+        setLoading(true);
         axios.get("/sanctum/csrf-cookie").then(() => {
-            loginMutation.mutate({
-                email: loginUser.email,
-                password: loginUser.password,
-            });
+            loginMutation
+                .mutateAsync({
+                    email: loginUser.email,
+                    password: loginUser.password,
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         });
     };
 
@@ -28,6 +34,7 @@ export const useLoginForm = () => {
     };
 
     return {
+        isLoading,
         onClickLoginButton,
         onChangeEmail,
         onChangePassword,
