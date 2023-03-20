@@ -1,43 +1,58 @@
 import { changeEmail, changePassword } from "@/ducks/loginUserSlice";
+import { RootState } from "@/ducks/store";
 import { useLoginForm } from "@/features/login/useLoginForm";
 import { ChangeEvent } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BasicCard } from "../../components/atoms/BasicCard";
 import { CustomButton } from "../../components/ui/CustomButton";
 import { CustomTextField } from "../../components/ui/CustomTextField";
+import { useValidateEmail } from "./useValidateEmail";
+import { useValidatePassword } from "./useValidatePassword";
 
 export const LoginForm = () => {
-    const BasicTextField = CustomTextField.primary;
-    const BasicButton = CustomButton.primary;
+    const PrimaryTextField = CustomTextField.primary;
+    const PrimaryButton = CustomButton.primary;
     const dispatch = useDispatch();
+    const loginUser = useSelector((state: RootState) => state.loginUser);
     const { onClickLoginButton } = useLoginForm();
+    const { isNotExactEmail } = useValidateEmail();
+    const { isNotExactPassword } = useValidatePassword();
     return (
         <BasicCard>
-            <BasicTextField
+            <PrimaryTextField
                 type="email"
                 label="Email"
                 fullWidth
                 required
                 margin="normal"
+                inputProps={{ maxLength: 256 }}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     dispatch(changeEmail(e.target.value));
                 }}
                 // error={error}
                 // disabled={loading}
             />
-            <BasicTextField
+            <PrimaryTextField
                 type="password"
                 label="Password"
                 fullWidth
                 required
                 margin="normal"
+                inputProps={{ maxLength: 32 }}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     dispatch(changePassword(e.target.value))
                 }
                 // error={error}
                 // disabled={loading}
             />
-            <BasicButton onClick={onClickLoginButton}>Log in</BasicButton>
+            <PrimaryButton
+                onClick={onClickLoginButton}
+                disabled={
+                    isNotExactEmail(loginUser) || isNotExactPassword(loginUser)
+                }
+            >
+                Log in
+            </PrimaryButton>
         </BasicCard>
     );
 };
