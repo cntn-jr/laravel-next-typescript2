@@ -9,6 +9,7 @@ export const useLoginForm = () => {
     const loginUser = useSelector((state: RootState) => state.loginUser);
     const dispatch = useDispatch();
     const [isLoading, setLoading] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
     const { loginMutation } = useAuthenticate();
 
     const onClickLoginButton = () => {
@@ -18,6 +19,9 @@ export const useLoginForm = () => {
                 .mutateAsync({
                     email: loginUser.email,
                     password: loginUser.password,
+                })
+                .catch(() => {
+                    setIsError(true);
                 })
                 .finally(() => {
                     setLoading(false);
@@ -35,6 +39,7 @@ export const useLoginForm = () => {
 
     return {
         isLoading,
+        isError,
         onClickLoginButton,
         onChangeEmail,
         onChangePassword,

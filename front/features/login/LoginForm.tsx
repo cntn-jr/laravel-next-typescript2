@@ -1,5 +1,6 @@
 import { RootState } from "@/ducks/store";
 import { useLoginForm } from "@/features/login/useLoginForm";
+import { Alert } from "@mui/material";
 import { useSelector } from "react-redux";
 import { BasicCard } from "../../components/atoms/BasicCard";
 import { CustomButton } from "../../components/ui/CustomButton";
@@ -11,8 +12,13 @@ export const LoginForm = () => {
     const PrimaryTextField = CustomTextField.primary;
     const PrimaryLoadingButton = CustomButton.primaryLoading;
     const loginUser = useSelector((state: RootState) => state.loginUser);
-    const { onClickLoginButton, onChangeEmail, onChangePassword, isLoading } =
-        useLoginForm();
+    const {
+        onClickLoginButton,
+        onChangeEmail,
+        onChangePassword,
+        isLoading,
+        isError,
+    } = useLoginForm();
     const { isNotExactEmail } = useValidateEmail();
     const { isNotExactPassword } = useValidatePassword();
     return (
@@ -25,7 +31,7 @@ export const LoginForm = () => {
                 margin="normal"
                 inputProps={{ maxLength: 256 }}
                 onChange={onChangeEmail}
-                // error={error}
+                error={isError}
                 disabled={isLoading}
             />
             <PrimaryTextField
@@ -36,9 +42,15 @@ export const LoginForm = () => {
                 margin="normal"
                 inputProps={{ maxLength: 32 }}
                 onChange={onChangePassword}
-                // error={error}
+                error={isError}
                 disabled={isLoading}
             />
+            {isError && (
+                <Alert variant="outlined" severity="error">
+                    Incorrect email address or password!
+                </Alert>
+            )}
+
             <PrimaryLoadingButton
                 onClick={onClickLoginButton}
                 loading={isLoading}
