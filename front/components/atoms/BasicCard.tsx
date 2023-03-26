@@ -1,10 +1,10 @@
-import { Stack } from "@mui/material"
-import { ReactNode } from "react"
+import { Stack } from "@mui/material";
+import { ReactNode } from "react";
 
-type Props = { children: ReactNode }
+type Props = { children: ReactNode };
 
 export const BasicCard = (props: Props) => {
-    const { children } = props
+    const { children } = props;
     return (
         <Stack
             component="form"
@@ -21,5 +21,5 @@ export const BasicCard = (props: Props) => {
         >
             {children}
         </Stack>
-    )
-}
+    );
+};
