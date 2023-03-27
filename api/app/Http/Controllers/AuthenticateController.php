@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\AuthenticateException;
 use App\Http\Requests\AuthenticateRequest;
-use AuthenticateService;
+use App\Services\AuthenticateService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -24,5 +24,6 @@ class AuthenticateController extends Controller
             echo $e->getMessage() . "<br>";
             return response()->json([], 401);
         }
+        return response()->json([]);
     }
 }

@@ -1,7 +1,10 @@
 <?php
 
+namespace App\Services;
+
 use App\Exceptions\AuthenticateException;
 use App\Http\Requests\AuthenticateRequest;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 
 class AuthenticateService{
