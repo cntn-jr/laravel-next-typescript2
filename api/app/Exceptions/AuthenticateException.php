@@ -6,5 +6,5 @@ use Exception;
 
 class AuthenticateException extends Exception
 {
-    protected $message = "認証に失敗しました。";
+    protected $message = '認証に失敗しました。';
 }
