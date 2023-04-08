@@ -45,4 +45,5 @@ f:
 
 test:
 	docker-compose exec api php artisan config:clear
+	docker-compose exec api php artisan test
 	docker-compose exec api php artisan test tests/Feature/Authenticate/loginAppUser.php
