@@ -16,7 +16,7 @@ class AuthenticateController extends Controller
     public function login(AuthenticateRequest $request): JsonResponse
     {
         try {
-            $this->_authenticateService->authenticateAppUser($request);
+            $this->_authenticateService->authenticateAppUser($request->input('email'), $request->input('password'));
         } catch (AuthenticateException $e) {
             echo $e->getCode().'<br>';
             echo $e->getFile().'<br>';
