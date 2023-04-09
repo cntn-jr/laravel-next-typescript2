@@ -7,6 +7,10 @@ use Exception;
 
 class UserRepository
 {
+    public function __construct(private ?User $_userModel = null)
+    {
+    }
+
     /**
      * find user on database function.
      *
@@ -15,7 +19,7 @@ class UserRepository
     public function findUser(array $params): ?User
     {
         try {
-            return User::where($params[0], $params[1])->first();
+            return $this->_userModel->where($params[0], $params[1])->first();
         } catch (Exception $_e) {
             return null;
         }
