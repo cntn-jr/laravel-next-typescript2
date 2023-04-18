@@ -2,16 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Exceptions\AuthenticateException;
+use App\Http\Requests\AuthenticateRequest;
+use App\Services\AuthenticateService;
+use Illuminate\Http\JsonResponse;
 
 class AuthenticateController extends Controller
 {
-    public function login(Request $request)
+    public function __construct(private ?AuthenticateService $_authenticateService = null)
     {
-        return response()->json([], 401);
-        return response()->json([
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
+    }
+
+    public function login(AuthenticateRequest $request): JsonResponse
+    {
+        try {
+            $this->_authenticateService->authenticateAppUser($request->input('email'), $request->input('password'));
+        } catch (AuthenticateException $e) {
+            echo $e->getCode().'<br>';
+            echo $e->getFile().'<br>';
+            echo $e->getLine().'<br>';
+            echo $e->getMessage().'<br>';
+            return response()->json([], 401);
+        }
+        return response()->json([]);
     }
 }

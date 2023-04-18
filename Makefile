@@ -41,3 +41,9 @@ mvdb:
 
 f:
 	docker-compose exec front yarn prettier --write .
+	docker-compose exec api ./vendor/bin/php-cs-fixer fix -v --diff ./app
+
+test:
+	docker-compose exec api php artisan config:clear
+	docker-compose exec api php artisan test
+	docker-compose exec api php artisan test tests/Feature/Authenticate/loginAppUser.php
