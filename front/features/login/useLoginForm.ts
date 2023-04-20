@@ -5,7 +5,7 @@ import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { changeEmail, changePassword } from "@/ducks/loginUserSlice";
 
-export const useLoginForm = () => {
+export default function useLoginForm() {
     const loginUser = useSelector((state: RootState) => state.loginUser);
     const dispatch = useDispatch();
     const [isLoading, setLoading] = useState<boolean>(false);
@@ -44,4 +44,4 @@ export const useLoginForm = () => {
         onChangeEmail,
         onChangePassword,
     };
-};
+}

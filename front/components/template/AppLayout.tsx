@@ -1,9 +1,5 @@
 import { Box, Container, Grid } from "@mui/material";
-import { AppFooter } from "./AppFooter";
-import { AppHeader } from "./AppHeader";
-
-import { AppSidebar } from "./AppSidebar";
-import { AppMain } from "./AppMain";
+import { AppFooter, AppHeader, AppMain, AppSidebar } from "../atoms/app/";
 import { ReactNode } from "react";
 
 type Props = {

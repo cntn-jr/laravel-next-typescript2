@@ -1,14 +1,16 @@
 import { RootState } from "@/ducks/store";
-import { useLoginForm } from "@/features/login/useLoginForm";
+import {
+    useLoginForm,
+    useValidateEmail,
+    useValidatePassword,
+} from "@/features/login";
 import { Alert } from "@mui/material";
 import { useSelector } from "react-redux";
-import { BasicCard } from "../../components/atoms/BasicCard";
-import { CustomButton } from "../../components/ui/CustomButton";
-import { CustomTextField } from "../../components/ui/CustomTextField";
-import { useValidateEmail } from "./useValidateEmail";
-import { useValidatePassword } from "./useValidatePassword";
+import { BasicBox } from "@/components/atoms/BasicBox";
+import { CustomButton } from "@/components/ui/CustomButton";
+import { CustomTextField } from "@/components/ui/CustomTextField";
 
-export const LoginForm = () => {
+export default function LoginForm() {
     const PrimaryTextField = CustomTextField.primary;
     const PrimaryLoadingButton = CustomButton.primaryLoading;
     const loginUser = useSelector((state: RootState) => state.loginUser);
@@ -22,7 +24,7 @@ export const LoginForm = () => {
     const { isNotExactEmail } = useValidateEmail();
     const { isNotExactPassword } = useValidatePassword();
     return (
-        <BasicCard>
+        <BasicBox>
             <PrimaryTextField
                 type="email"
                 label="Email"
@@ -60,6 +62,6 @@ export const LoginForm = () => {
             >
                 Log in
             </PrimaryLoadingButton>
-        </BasicCard>
+        </BasicBox>
     );
-};
+}
