@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 type Props = { children: ReactNode };
 
-export const BasicCard = (props: Props) => {
+export const BasicBox = (props: Props) => {
     const { children } = props;
     return (
         <Stack

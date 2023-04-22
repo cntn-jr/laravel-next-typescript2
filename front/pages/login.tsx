@@ -1,5 +1,5 @@
-import { LoginForm } from "@/features/login/LoginForm";
 import { AppAuthLayout } from "@/components/template/AppAuthLayout";
+import { LoginForm } from "@/features/login";
 
 const login = () => {
     return (

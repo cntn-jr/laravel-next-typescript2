@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 
-export const AppFooter = () => {
+export default function AppFooter() {
     return (
         <Typography
             variant="body2"
@@ -12,4 +12,4 @@ export const AppFooter = () => {
             2023 Yoshihiko Chihara
         </Typography>
     );
-};
+}

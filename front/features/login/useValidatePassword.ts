@@ -1,4 +1,4 @@
-export const useValidatePassword = () => {
+export default function useValidatePassword() {
     const patternBigAlphabet = /[A-Z]/;
     const patternLittleAlphabet = /[a-z]/;
     const patternNumber = /[0-9]/;
@@ -44,4 +44,4 @@ export const useValidatePassword = () => {
     };
 
     return { isNotExactPassword };
-};
+}

@@ -1,7 +1,7 @@
 import { AppColor } from "@/styles/AppColor";
 import { AppBar, Box, Typography } from "@mui/material";
 
-export const AppHeader = () => {
+export default function AppHeader() {
     return (
         <AppBar
             position="absolute"
@@ -22,4 +22,4 @@ export const AppHeader = () => {
             </Box>
         </AppBar>
     );
-};
+}
