@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Exceptions\AuthenticateException;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\AuthManager;
 
@@ -14,17 +13,16 @@ class AuthenticateService
 
     /**
      * authenticate app user function.
-     * throw AuthenticateException if logging in failed.
      */
-    public function authenticateAppUser(string $_email, string $_password): void
+    public function authenticateAppUser(string $_email, string $_password): bool
     {
         if ($this->_authManager->attempt(['email' => $_email, 'password' => $_password], true)) {
             $_login_user_id = $this->_authManager->user()->id;
             $_login_user = $this->_userRepository->findUser(['id', $_login_user_id]);
             $_login_user->tokens()->delete();
             $_login_user->createToken("login:user{$_login_user->id}")->plainTextToken;
-        } else {
-            throw new AuthenticateException();
+            return true;
         }
+        return false;
     }
 }
