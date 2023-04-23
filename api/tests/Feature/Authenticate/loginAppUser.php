@@ -15,18 +15,31 @@ class loginAppUser extends TestCase
 
     use RefreshDatabase;
 
+    private User $_user;
+    private User $_another_user;
+    private String $_password = "Password1";
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        // ユーザの作成
+        $this->_user = User::factory()->create(["password" => Hash::make($this->_password)]);
+        $this->_user = User::find($this->_user->id);
+    }
+
     public function test_login_success(): void
     {
-        $_password = "Password1";
-        // ユーザの作成
-        $_user = User::factory()->create(["password" => Hash::make($_password)]);
-        $_user = User::find($_user->id);
         // ログインAPIの実行
         $_response = $this->json('POST', 'api/login', [
-            "email" => $_user->email,
-            "password" => $_password,
+            "email" => $this->_user->email,
+            "password" => $this->_password,
         ]);
         $_response->assertStatus(200);
+        // ユーザーのトークンが生成され、DBに保存されていることをアサート
+        $this->assertDatabaseHas('personal_access_tokens', [
+            'name' => "login:user{$this->_user->id}"
+        ]);
         // 認証されていることを確認
         $this->assertTrue(Auth::check());
         // ログイン済みユーザのみ実行できるApiの実行
@@ -34,16 +47,29 @@ class loginAppUser extends TestCase
         $_response->assertStatus(200);
     }
 
-    public function test_login_not_exact_email()
+    public function test_login_wrong_email()
     {
-        $_password = "Password1";
-        // ユーザの作成
-        $_user = User::factory()->create(["password" => Hash::make($_password)]);
-        $_user = User::find($_user->id);
+        $_password_another = $this->_password."wrong";
+        $_another_user = User::factory()->create(["password" =>  Hash::make($_password_another)]);
+        $_another_user = User::find($_another_user->id);
+        $_email_wrong = $_another_user->email;
         // ログインAPIの実行
         $_response = $this->json('POST', 'api/login', [
-            "email" => "email",
-            "password" => $_password,
+            "email" => $_email_wrong,
+            "password" => $this->_password,
+        ]);
+        $_response->assertStatus(401);
+        // 認証されていないことを確認
+        $this->assertTrue(!Auth::check());
+    }
+
+    public function test_login_not_exact_email()
+    {
+        $_email_not_exact = "email_not_exact";
+        // ログインAPIの実行
+        $_response = $this->json('POST', 'api/login', [
+            "email" => $_email_not_exact,
+            "password" => $this->_password,
         ]);
         $_response->assertStatus(422);
         // 認証されていないことを確認
@@ -52,14 +78,11 @@ class loginAppUser extends TestCase
 
     public function test_login_not_exact_email_empty()
     {
-        $_password = "Password1";
-        // ユーザの作成
-        $_user = User::factory()->create(["password" => Hash::make($_password)]);
-        $_user = User::find($_user->id);
+        $_email_null = "";
         // ログインAPIの実行
         $_response = $this->json('POST', 'api/login', [
-            "email" => "",
-            "password" => $_password,
+            "email" => $_email_null,
+            "password" => $this->_password,
         ]);
         $_response->assertStatus(422);
         // 認証されていないことを確認
@@ -68,14 +91,14 @@ class loginAppUser extends TestCase
 
     public function test_login_exact_password_max_character()
     {
-        $_password = str_repeat("a", 29) . "A" . "1";
+        $_password_31_char = str_repeat("a", 29) . "A" . "1";
         // ユーザの作成
-        $_user = User::factory()->create(["password" => Hash::make($_password)]);
+        $_user = User::factory()->create(["password" => Hash::make($_password_31_char)]);
         $_user = User::find($_user->id);
         // ログインAPIの実行
         $_response = $this->json('POST', 'api/login', [
             "email" => $_user->email,
-            "password" => $_password,
+            "password" => $_password_31_char,
         ]);
         $_response->assertStatus(200);
         // 認証されていないことを確認
@@ -84,14 +107,14 @@ class loginAppUser extends TestCase
 
     public function test_login_not_exact_password_over_character()
     {
-        $_password = str_repeat("a", 30) . "A" . "1";
+        $_password_32_char = str_repeat("a", 30) . "A" . "1";
         // ユーザの作成
-        $_user = User::factory()->create(["password" => Hash::make($_password)]);
+        $_user = User::factory()->create(["password" => Hash::make($_password_32_char)]);
         $_user = User::find($_user->id);
         // ログインAPIの実行
         $_response = $this->json('POST', 'api/login', [
             "email" => $_user->email,
-            "password" => $_password,
+            "password" => $_password_32_char,
         ]);
         $_response->assertStatus(422);
         // 認証されていないことを確認
@@ -100,14 +123,14 @@ class loginAppUser extends TestCase
 
     public function test_login_exact_password_min_character()
     {
-        $_password = str_repeat("a", 6) . "A" . "1";
+        $_password_8_char = str_repeat("a", 6) . "A" . "1";
         // ユーザの作成
-        $_user = User::factory()->create(["password" => Hash::make($_password)]);
+        $_user = User::factory()->create(["password" => Hash::make($_password_8_char)]);
         $_user = User::find($_user->id);
         // ログインAPIの実行
         $_response = $this->json('POST', 'api/login', [
             "email" => $_user->email,
-            "password" => $_password,
+            "password" => $_password_8_char,
         ]);
         $_response->assertStatus(200);
         // 認証されていないことを確認
@@ -116,14 +139,14 @@ class loginAppUser extends TestCase
 
     public function test_login_not_exact_password_less_than_character()
     {
-        $_password = str_repeat("a", 5) . "A" . "1";
+        $_password_7_char = str_repeat("a", 5) . "A" . "1";
         // ユーザの作成
-        $_user = User::factory()->create(["password" => Hash::make($_password)]);
+        $_user = User::factory()->create(["password" => Hash::make($_password_7_char)]);
         $_user = User::find($_user->id);
         // ログインAPIの実行
         $_response = $this->json('POST', 'api/login', [
             "email" => $_user->email,
-            "password" => $_password,
+            "password" => $_password_7_char,
         ]);
         $_response->assertStatus(422);
         // 認証されていないことを確認
@@ -132,14 +155,11 @@ class loginAppUser extends TestCase
 
     public function test_login_not_exact_password_empty()
     {
-        $_password = "Password1";
-        // ユーザの作成
-        $_user = User::factory()->create(["password" => Hash::make($_password)]);
-        $_user = User::find($_user->id);
+        $_password_null = "";
         // ログインAPIの実行
         $_response = $this->json('POST', 'api/login', [
-            "email" => $_user->email,
-            "password" => "",
+            "email" => $this->_user->email,
+            "password" => $_password_null,
         ]);
         $_response->assertStatus(422);
         // 認証されていないことを確認
