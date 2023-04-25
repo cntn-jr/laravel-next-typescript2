@@ -17,9 +17,10 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <Provider store={store}>
             <CookiesProvider>
-            <QueryClientProvider client={queryClient}>
-                <Component {...pageProps} />
-            </QueryClientProvider></CookiesProvider>
+                <QueryClientProvider client={queryClient}>
+                    <Component {...pageProps} />
+                </QueryClientProvider>
+            </CookiesProvider>
         </Provider>
     );
 }

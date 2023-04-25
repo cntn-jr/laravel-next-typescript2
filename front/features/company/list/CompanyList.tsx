@@ -38,10 +38,7 @@ export default function CompanyList() {
             ))}
             {new Array(4).fill("").map((val, index) => (
                 <Grid item xs={12} sm={6} md={4} key={index}>
-                    <CompanyCard
-                        name="ブラック"
-                        prefecture="沖縄県"
-                    />
+                    <CompanyCard name="ブラック" prefecture="沖縄県" />
                 </Grid>
             ))}
         </Grid>
