@@ -1,6 +1,7 @@
 import { store } from "@/ducks/store";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { CookiesProvider } from "react-cookie";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 
@@ -15,9 +16,10 @@ export default function App({ Component, pageProps }: AppProps) {
     });
     return (
         <Provider store={store}>
+            <CookiesProvider>
             <QueryClientProvider client={queryClient}>
                 <Component {...pageProps} />
-            </QueryClientProvider>
+            </QueryClientProvider></CookiesProvider>
         </Provider>
     );
 }
