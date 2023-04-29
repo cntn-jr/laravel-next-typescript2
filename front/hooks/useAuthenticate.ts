@@ -1,16 +1,17 @@
+import { useIsAuthentication } from "@/cookies/useIsAuthentication";
 import { AuthenticateApi } from "@/pages/api/AuthenticateApi";
-import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 
 export const useAuthenticate = () => {
-    const navigate = useNavigate();
-    const [cookies, setCookie] = useCookies(['isAuth']);
+    const router = useRouter();
     const { login } = AuthenticateApi();
+    const { setIsAuthentication } = useIsAuthentication();
     const loginMutation = useMutation(login, {
         onError: () => {},
-        onSuccess: (data) => {
-            console.log(data);
-            setCookie("isAuth", true);
+        onSuccess: () => {
+            setIsAuthentication(true);
+            router.push("/company/list");
         },
         onSettled: () => {},
     });

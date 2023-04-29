@@ -22,8 +22,6 @@ export default function useLoginForm() {
                 })
                 .catch(() => {
                     setIsError(true);
-                })
-                .finally(() => {
                     setLoading(false);
                 });
         });

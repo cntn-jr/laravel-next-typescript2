@@ -9,8 +9,6 @@ import { useSelector } from "react-redux";
 import { BasicBox } from "@/components/atoms/BasicBox";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { CustomTextField } from "@/components/ui/CustomTextField";
-import { useCookies } from "react-cookie";
-import { useEffect } from "react";
 
 export default function LoginForm() {
     const PrimaryTextField = CustomTextField.primary;
@@ -25,14 +23,6 @@ export default function LoginForm() {
     } = useLoginForm();
     const { isNotExactEmail } = useValidateEmail();
     const { isNotExactPassword } = useValidatePassword();
-    const [cookies, setCookie] = useCookies(['isAuth']);
-    useEffect(() => {
-        if(!cookies.isAuth){
-            console.log("falseやで。");
-            
-        }
-        console.log(cookies.isAuth);
-    }, []);
     return (
         <BasicBox>
             <PrimaryTextField
