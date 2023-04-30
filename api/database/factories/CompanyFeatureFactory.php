@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Facades\ArrayService;
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,10 @@ class CompanyFeatureFactory extends Factory
      */
     public function definition(): array
     {
+        $companies = Company::all(['id']);
         return [
-            //
+            "company_id" => fake()->randomElement(ArrayService::convertIdArray($companies)),
+            "content" => fake()->jobTitle(),
         ];
     }
 }
