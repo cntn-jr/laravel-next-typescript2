@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('company_features', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("company_id");
+            $table->string('content', 127);
             $table->timestamps();
         });
     }
