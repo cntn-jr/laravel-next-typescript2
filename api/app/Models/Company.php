@@ -11,9 +11,7 @@ class Company extends Model
     use HasFactory;
 
     /**
-     * Get all of the comments for the Company
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * Get all of the comments for the Company.
      */
     public function features(): HasMany
     {

@@ -19,6 +19,5 @@ class ArrayServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
     }
 }

@@ -4,18 +4,18 @@ namespace App\Utils;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ArrayService{
-
+class ArrayService
+{
     /**
-     * Undocumented function
+     * Undocumented function.
      *
      * @param array<Model> $models
-     * @return array
      */
-    public function convertIdArray($models):array
+    public function convertIdArray($models): array
     {
         $ids = [];
-        foreach($models as $model){
+
+        foreach ($models as $model) {
             array_push($ids, $model->id);
         }
         return $ids;
