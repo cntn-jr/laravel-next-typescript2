@@ -4,7 +4,7 @@ import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 type Props = {
     name: string;
     prefecture: prefectures;
-    features?: Array<string>;
+    features?: Array<any>;
 };
 
 export default function CompanyCard(props: Props) {
@@ -17,7 +17,7 @@ export default function CompanyCard(props: Props) {
                 border: "2px solid #ccc",
             }}
         >
-            <CardActionArea>
+            <CardActionArea sx={{ height: "250px" }}>
                 <CardContent>
                     <Typography variant="h5" component="div" noWrap={true}>
                         {name}
@@ -34,7 +34,7 @@ export default function CompanyCard(props: Props) {
                         .map((feature, index) => {
                             return (
                                 <Typography noWrap={true} key={index}>
-                                    ・{feature}
+                                    ・{feature.content}
                                 </Typography>
                             );
                         })}

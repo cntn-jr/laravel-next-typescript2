@@ -25,4 +25,7 @@ const loginUserSlice = createSlice({
 
 export const { changeEmail, changePassword, resetUser } =
     loginUserSlice.actions;
+
+export const selectLoginUserState = (state: LoginUserState) => state;
+
 export default loginUserSlice.reducer;

@@ -1,9 +1,23 @@
 import { Grid } from "@mui/material";
 import CompanyCard from "./CompanyCard";
+import { Company } from "@/types/Company";
 
-export default function CompanyList() {
+type Props = { companies: Company[] };
+
+export default function CompanyList(props: Props) {
+    const { companies } = props;
+    console.log(companies[18].features);
     return (
         <Grid container spacing={2}>
+            {companies.map((company) => (
+                <Grid item xs={12} sm={6} md={4} key={company.id}>
+                    <CompanyCard
+                        name={company.name}
+                        prefecture={company.prefecture}
+                        features={company.features}
+                    />
+                </Grid>
+            ))}
             {new Array(4).fill("").map((val, index) => (
                 <Grid item xs={12} sm={6} md={4} key={index}>
                     <CompanyCard

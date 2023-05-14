@@ -1,4 +1,3 @@
-import { RootState } from "@/ducks/store";
 import {
     useLoginForm,
     useValidateEmail,
@@ -9,11 +8,12 @@ import { useSelector } from "react-redux";
 import { BasicBox } from "@/components/atoms/BasicBox";
 import { CustomButton } from "@/components/ui/CustomButton";
 import { CustomTextField } from "@/components/ui/CustomTextField";
+import { selectLoginUserState } from "@/ducks/loginUserSlice";
 
 export default function LoginForm() {
     const PrimaryTextField = CustomTextField.primary;
     const PrimaryLoadingButton = CustomButton.primaryLoading;
-    const loginUser = useSelector((state: RootState) => state.loginUser);
+    const loginUser = useSelector(selectLoginUserState);
     const {
         onClickLoginButton,
         onChangeEmail,
@@ -56,9 +56,9 @@ export default function LoginForm() {
             <PrimaryLoadingButton
                 onClick={onClickLoginButton}
                 loading={isLoading}
-                disabled={
-                    isNotExactEmail(loginUser) || isNotExactPassword(loginUser)
-                }
+                // disabled={
+                //     isNotExactEmail(loginUser) || isNotExactPassword(loginUser)
+                // }
             >
                 Log in
             </PrimaryLoadingButton>
