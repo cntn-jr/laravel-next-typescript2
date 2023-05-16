@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticateService
 {
@@ -24,5 +26,10 @@ class AuthenticateService
             return true;
         }
         return false;
+    }
+
+    public function removeAuthentication(User $_user){
+        $_user->tokens()->delete();
+        auth('web')->logout();
     }
 }

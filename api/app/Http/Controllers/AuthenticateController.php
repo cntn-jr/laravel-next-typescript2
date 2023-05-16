@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AuthenticateRequest;
 use App\Services\AuthenticateService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthenticateController extends Controller
 {
@@ -18,5 +20,12 @@ class AuthenticateController extends Controller
             return response()->json([]);
         }
         return response()->json([], 401);
+    }
+
+    public function logout(Request $_request)
+    {
+        dd(auth('web')->user());
+        $this->_authenticateService->removeAuthentication($_request->user());
+        return response()->json([]);
     }
 }
