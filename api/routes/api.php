@@ -22,10 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::middleware(['auth:sanctum'])->group( function(){
-//     Route::get('/company', [CompanyController::class, 'index']);
-// });
+Route::middleware(['auth:sanctum'])->group( function(){
+    Route::get('/company', [CompanyController::class, 'index']);
+});
 
 // Route::group( function(){
-    Route::get('/company', [CompanyController::class, 'index']);
+    // Route::get('/company', [CompanyController::class, 'index']);
 // });
